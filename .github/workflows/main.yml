@@ -41,23 +41,3 @@ jobs:
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-
-  deploy:
-   needs: build
-   runs-on: ubuntu-latest
-   steps:
-     - name: Checkout Code
-       uses: actions/checkout@v4
-     - name: Generate deployment package
-       run: zip deploy.zip Dockerrun.aws.json
-     - name: Deploy to AWS Elastic BeanTalk
-       uses: einaregilsson/beanstalk-deploy@v20
-       with:
-         aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-         aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-         application_name: admin-client
-         environment_name: Adminclient-env
-         version_label: ${{ env.PIPELINE_ID }}
-         use_existing_version_if_available: true
-         region: us-east-1
-         deployment_package: deploy.zip
