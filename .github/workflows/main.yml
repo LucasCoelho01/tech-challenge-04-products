@@ -47,7 +47,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-    - name: Generate deployment package
+    - name: Generate Deployment package
       run: zip -r deploy.zip . -x '*.git*'
     - name: Deploy to Elastic Beanstalk
       uses: einaregilsson/beanstalk-deploy@v22
