@@ -19,19 +19,24 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
+    @GetMapping
+    ResponseEntity<List<Product>> getAllProducts() {
+        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+    }
+
     @PostMapping
     @Transactional
     ResponseEntity<Product> createProduct(@RequestBody @Valid ProductDto productDto) {
         return new ResponseEntity<>(productService.createProduct(productDto), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    ResponseEntity<List<Product>> getAllProducts() {
-        return new ResponseEntity<>(productService.getAllProducts(), HttpStatus.OK);
+    @GetMapping("/teste")
+    ResponseEntity<String> teste() {
+        return new ResponseEntity<>("Endpoint de teste atualizado", HttpStatus.OK);
     }
 
     @GetMapping("/{name}")
-    ResponseEntity<Product> findByCpf(@PathVariable String name) {
+    ResponseEntity<Product> findByName(@PathVariable String name) {
         return new ResponseEntity<>(productService.findByName(name), HttpStatus.OK);
     }
 

@@ -69,7 +69,7 @@ class ProductControllerTest {
         String name = "testProduct";
         when(productService.findByName(name)).thenReturn(product);
 
-        ResponseEntity<Product> response = productController.findByCpf(name);
+        ResponseEntity<Product> response = productController.findByName(name);
 
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
