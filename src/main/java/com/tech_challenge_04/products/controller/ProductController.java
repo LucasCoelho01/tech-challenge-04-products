@@ -32,7 +32,7 @@ public class ProductController {
 
     @GetMapping("/teste")
     ResponseEntity<String> teste() {
-        return new ResponseEntity<>("Endpoint de teste atualizado", HttpStatus.OK);
+        return new ResponseEntity<>("Endpoint de teste", HttpStatus.OK);
     }
 
     @GetMapping("/{name}")
