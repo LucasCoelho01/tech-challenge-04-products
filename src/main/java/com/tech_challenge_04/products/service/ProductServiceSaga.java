@@ -27,6 +27,7 @@ public class ProductServiceSaga {
 
     @RabbitListener(queues = RabbitMQConfig.QUEUE_PRODUCT_REQUEST)
     public void handleCustomerMessage(String jsonRequest) {
+        System.out.println("Recebido queue QUEUE_PRODUCT_REQUEST");
         Gson gson = new Gson();
         ProductRequestDto requestDto = gson.fromJson(jsonRequest, ProductRequestDto.class);
 
@@ -44,5 +45,6 @@ public class ProductServiceSaga {
         String json = gson.toJson(productResponseDto);
 
         rabbitTemplate.convertAndSend(RabbitMQConfig.QUEUE_PRODUCT_RESPONSE, json);
+        System.out.println("Enviado queue QUEUE_PRODUCT_RESPONSE");
     }
 }
